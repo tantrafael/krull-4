@@ -21,6 +21,8 @@ void ABody::BeginPlay()
 
 void ABody::SetupVertices()
 {
+	const float Radius = 10.0f;
+
 	for (int JointIndex = 0; JointIndex < JointCount; ++JointIndex)
 	{
 		for (int SideIndex = 0; SideIndex < SideCount; ++SideIndex)
@@ -28,7 +30,6 @@ void ABody::SetupVertices()
 			//Vertices.Add(FVector::ZeroVector);
 
 			const float Angle{ SideIndex * AngleIncrement };
-			const float Radius = 10.0f;
 
 			FVector Vertex = FVector::ZeroVector
 				+ Radius * FMath::Cos(Angle) * FVector::YAxisVector
@@ -39,14 +40,13 @@ void ABody::SetupVertices()
 	}
 }
 
-void ABody::UpdateVertices(const FTransform Transform)
+void ABody::UpdateVertices(const FTransform Transform, const float Radius)
 {
 	Vertices.RemoveAt(0, SideCount, false);
 
 	for (int SideIndex = 0; SideIndex < SideCount; ++SideIndex)
 	{
 		const float Angle{ SideIndex * AngleIncrement };
-		const float Radius = 50.0f;
 
 		FVector Vertex = Transform.GetLocation()
 			+ Radius * FMath::Cos(Angle) * Transform.GetUnitAxis(EAxis::Type::Y)
@@ -90,6 +90,6 @@ void ABody::GenerateMesh()
 
 void ABody::Update(const FTransform Transform, const float Radius)
 {
-	UpdateVertices(Transform);
+	UpdateVertices(Transform, Radius);
 	GenerateMesh();
 }

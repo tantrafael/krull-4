@@ -12,7 +12,6 @@ ACamera::ACamera()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> BallMesh(TEXT("/Game/Meshes/BallMesh.BallMesh"));
 
 	Body = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Body"));
-	//Body = CreateDefaultSubobject<UPrimitiveComponent>(TEXT("Body"));
 	Body->SetStaticMesh(BallMesh.Object);
 	Body->BodyInstance.SetCollisionProfileName(UCollisionProfile::PhysicsActor_ProfileName);
 	Body->SetSimulatePhysics(true);
@@ -40,7 +39,7 @@ void ACamera::BeginPlay()
 	Super::BeginPlay();
 
 	Body->SetLinearDamping(2.0f);
-	Body->SetAngularDamping(4.0f);
+	Body->SetAngularDamping(8.0f);
 
 	GetWorld()->GetFirstPlayerController()->SetViewTarget(this);
 }

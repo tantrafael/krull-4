@@ -32,12 +32,8 @@ void AKrullGameMode::Tick(float DeltaTime)
 	FVector DeltaPosition = Curl->GetPosition() - Camera->GetActorLocation();
 	FVector Force = 400.0f * DeltaPosition;
 	Camera->AddForce(Force);
-	//Camera->Body->AddForce(Force);
 
 	FVector CameraForward = Camera->GetActorForwardVector();
-	//FVector F = Camera->GetActorForwardVector();
-	FVector Torque = 1000.0f * FVector::CrossProduct(CameraForward, DeltaPosition);
-	//Camera->Body->AddTorqueInRadians(200.0f * Torque);
-	//Camera->Body->AddTorqueInRadians(Torque);
+	FVector Torque = 4000.0f * FVector::CrossProduct(CameraForward, DeltaPosition);
 	Camera->AddTorque(Torque);
 }

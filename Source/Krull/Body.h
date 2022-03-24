@@ -19,7 +19,6 @@ class KRULL_API ABody : public AActor
 	int JointCount{ 2000 };
 
 	float AngleIncrement{ 2 * PI / SideCount };
-	//TArray<FTransform> Joints;
 	TArray<FVector> Vertices;
 
 	class UProceduralMeshComponent* Mesh;
@@ -33,7 +32,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	void SetupVertices();
-	void UpdateVertices(const FTransform Transform);
+	void UpdateVertices(const FTransform Transform, const float Radius);
 	void GenerateMesh();
 
 public:	

@@ -76,8 +76,8 @@ void ACurl::Tick(float DeltaTime)
 	FVector AngularVelocity = Head->GetAngularVelocity();
 	//const float Radius = 10.0f;
 	//const float Radius = 10.0f + 4.0f * AngularVelocity.Size();
-	//const float Radius = 20.0f + 0.5f * AngularVelocity.Size();
-	const float Radius = 10.0f + 2.0f * AngularVelocity.Size();
+	const float Radius = 20.0f + 1.0f * AngularVelocity.Size();
+	//const float Radius = 10.0f + 2.0f * AngularVelocity.Size();
 	//const float Radius = 4000.0f / (AngularVelocity.Size() + 10.0f);
 
 	Body->Update(Transform, Radius);
