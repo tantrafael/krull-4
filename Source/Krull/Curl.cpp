@@ -12,13 +12,11 @@ ACurl::ACurl()
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 
 	HeadComponent = CreateDefaultSubobject<UChildActorComponent>(TEXT("Head"));
-	HeadComponent->RegisterComponent();
 	HeadComponent->SetupAttachment(RootComponent);
 	HeadComponent->SetChildActorClass(AHead::StaticClass());
 	HeadComponent->CreateChildActor();
 
 	BodyComponent = CreateDefaultSubobject<UChildActorComponent>(TEXT("Body"));
-	BodyComponent->RegisterComponent();
 	BodyComponent->SetupAttachment(RootComponent);
 	BodyComponent->SetChildActorClass(ABody::StaticClass());
 	BodyComponent->CreateChildActor();

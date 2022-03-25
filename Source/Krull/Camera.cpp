@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Camera.h"
 #include "Camera/CameraComponent.h"
 
@@ -50,5 +49,5 @@ void ACamera::AddForce(const FVector Force)
 
 void ACamera::AddTorque(const FVector Torque)
 {
-	Body->AddTorque(Torque);
+	Body->AddTorqueInRadians(Torque);
 }
