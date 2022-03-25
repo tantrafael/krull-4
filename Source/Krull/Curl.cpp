@@ -9,9 +9,6 @@
 // Sets default values.
 ACurl::ACurl()
 {
-	// Set this actor to call Tick() every frame. You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 
 	HeadComponent = CreateDefaultSubobject<UChildActorComponent>(TEXT("Head"));
@@ -38,6 +35,7 @@ void ACurl::BeginPlay()
 
 void ACurl::Yaw(float AxisValue)
 {
+	// TODO: Assert Head.
 	if (Head == nullptr)
 	{
 		return;
@@ -49,6 +47,7 @@ void ACurl::Yaw(float AxisValue)
 
 void ACurl::Pitch(float AxisValue)
 {
+	// TODO: Assert Head.
 	if (Head == nullptr)
 	{
 		return;
@@ -56,31 +55,6 @@ void ACurl::Pitch(float AxisValue)
 
 	const FVector Torque = AxisValue * FVector::YAxisVector;
 	Head->Turn(Torque);
-}
-
-// Called every frame.
-void ACurl::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-	// TODO: Assert
-
-	if (Head == nullptr || Body == nullptr)
-	{
-		return;
-	}
-
-	Head->Update();
-
-	const FTransform Transform = Head->GetTransform();
-	FVector AngularVelocity = Head->GetAngularVelocity();
-	//const float Radius = 10.0f;
-	//const float Radius = 10.0f + 4.0f * AngularVelocity.Size();
-	const float Radius = 20.0f + 1.0f * AngularVelocity.Size();
-	//const float Radius = 10.0f + 2.0f * AngularVelocity.Size();
-	//const float Radius = 4000.0f / (AngularVelocity.Size() + 10.0f);
-
-	Body->Update(Transform, Radius);
 }
 
 void ACurl::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -93,4 +67,22 @@ void ACurl::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponen
 FVector ACurl::GetPosition()
 {
 	return Head->GetPosition();
+}
+
+void ACurl::Update(const float DeltaTime)
+{
+	// TODO: Assert Head and Body.
+	if (Head == nullptr || Body == nullptr)
+	{
+		return;
+	}
+
+	Head->Update();
+
+	const FTransform Transform = Head->GetTransform();
+	FVector AngularVelocity = Head->GetAngularVelocity();
+	const float Radius = 20.0f + 1.0f * AngularVelocity.Size();
+	//const float Radius = 10.0f + 2.0f * AngularVelocity.Size();
+
+	Body->Update(Transform, Radius);
 }

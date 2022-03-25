@@ -11,16 +11,20 @@ class KRULL_API ABody : public AActor
 {
 	GENERATED_BODY()
 
-	/** Mesh */
 	UPROPERTY(VisibleAnywhere, Category = Curl)
-	int SideCount{ 6 };
+	int SideCount;
 
 	UPROPERTY(VisibleAnywhere, Category = Curl)
-	int JointCount{ 2000 };
+	int JointCount;
 
-	float AngleIncrement{ 2 * PI / SideCount };
+	UPROPERTY(VisibleAnywhere, Category = Curl)
+	float SideAngle;
+
+	UPROPERTY(VisibleAnywhere, Category = Curl)
 	TArray<FVector> Vertices;
 
+	// Runtime-generated tubular mesh.
+	UPROPERTY(VisibleAnywhere, Category = Curl)
 	class UProceduralMeshComponent* Mesh;
 
 public:	
@@ -31,7 +35,7 @@ protected:
 	// Called when the game starts or when spawned.
 	virtual void BeginPlay() override;
 
-	void SetupVertices();
+	void InitializeVertices();
 	void UpdateVertices(const FTransform Transform, const float Radius);
 	void GenerateMesh();
 

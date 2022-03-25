@@ -23,7 +23,10 @@ class KRULL_API ACurl : public APawn
 	UPROPERTY(VisibleAnywhere, Category = Curl)
 	class ABody* Body;
 
+	UPROPERTY(VisibleAnywhere, Category = Curl)
 	UChildActorComponent* HeadComponent;
+
+	UPROPERTY(VisibleAnywhere, Category = Curl)
 	UChildActorComponent* BodyComponent;
 
 public:
@@ -39,11 +42,9 @@ protected:
 	void Pitch(float AxisValue);
 
 public:	
-	// Called every frame.
-	virtual void Tick(float DeltaTime) override;
-
 	// Called to bind functionality to input.
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	FVector GetPosition();
+	void Update(const float DeltaTime);
 };

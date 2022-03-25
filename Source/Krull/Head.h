@@ -11,11 +11,14 @@ class KRULL_API AHead : public AActor
 {
 	GENERATED_BODY()
 
-	// StaticMesh used for the director
+	UPROPERTY(VisibleAnywhere, Category = Krull)
+	float TorqueFactor;
+
+	// StaticMesh used for the director.
 	UPROPERTY(VisibleAnywhere, Category = Krull)
 	class UStaticMeshComponent* Director;
 
-	// StaticMesh used for the positioner
+	// StaticMesh used for the positioner.
 	UPROPERTY(VisibleAnywhere, Category = Krull)
 	class UStaticMeshComponent* Positioner;
 

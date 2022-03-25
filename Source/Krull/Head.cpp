@@ -5,6 +5,8 @@
 // Sets default values.
 AHead::AHead()
 {
+	TorqueFactor = 50000000.0f;
+
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 
 	// TODO: Fix texture.
@@ -61,13 +63,14 @@ FVector AHead::GetAngularVelocity()
 
 void AHead::Turn(const FVector Torque)
 {
-	const FVector T = 50000000.0f * Torque;
+	//const FVector T = 50000000.0f * Torque;
+	const FVector T = TorqueFactor * Torque;
 	Director->AddTorqueInRadians(T);
 }
 
 void AHead::Update()
 {
-	const FVector Torque = 400000000.0f * FMath::VRand();
+	//const FVector Torque = 400000000.0f * FMath::VRand();
 	//Director->AddTorqueInRadians(Torque);
 
 	const FQuat Orientation = Director->GetComponentQuat();

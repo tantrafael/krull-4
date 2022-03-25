@@ -6,6 +6,10 @@
 // Sets default values.
 ABody::ABody()
 {
+	SideCount = 6;
+	JointCount = 2000;
+	SideAngle = 2 * PI / SideCount;
+
 	Mesh = CreateDefaultSubobject<UProceduralMeshComponent>("Mesh");
 	Mesh->bUseAsyncCooking = true;
 	SetRootComponent(Mesh);
@@ -16,12 +20,13 @@ void ABody::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetupVertices();
+	InitializeVertices();
 }
 
-void ABody::SetupVertices()
+void ABody::InitializeVertices()
 {
-	const float Radius = 10.0f;
+	/*
+	const float Radius = 50.0f;
 
 	for (int JointIndex = 0; JointIndex < JointCount; ++JointIndex)
 	{
@@ -29,14 +34,21 @@ void ABody::SetupVertices()
 		{
 			//Vertices.Add(FVector::ZeroVector);
 
-			const float Angle{ SideIndex * AngleIncrement };
+			const float Angle{ SideIndex * SideAngle };
 
 			FVector Vertex = FVector::ZeroVector
+			//FVector Vertex = JointIndex * FVector::XAxisVector
 				+ Radius * FMath::Cos(Angle) * FVector::YAxisVector
 				+ Radius * FMath::Sin(Angle) * FVector::ZAxisVector;
 
 			Vertices.Add(Vertex);
 		}
+	}
+	*/
+
+	for (int i = 0; i < JointCount * SideCount; ++i)
+	{
+		Vertices.Add(FVector::ZeroVector);
 	}
 }
 
@@ -46,7 +58,7 @@ void ABody::UpdateVertices(const FTransform Transform, const float Radius)
 
 	for (int SideIndex = 0; SideIndex < SideCount; ++SideIndex)
 	{
-		const float Angle{ SideIndex * AngleIncrement };
+		const float Angle{ SideIndex * SideAngle };
 
 		FVector Vertex = Transform.GetLocation()
 			+ Radius * FMath::Cos(Angle) * Transform.GetUnitAxis(EAxis::Type::Y)
@@ -70,17 +82,17 @@ void ABody::GenerateMesh()
 	{
 		for (int SideIndex = 0; SideIndex < SideCount; ++SideIndex)
 		{
-			const int A{ SegmentIndex * SideCount + SideIndex };
-			const int B{ SegmentIndex * SideCount + (SideIndex + 1) % SideCount };
-			const int C{ (SegmentIndex + 1) * SideCount + SideIndex };
-			const int D{ (SegmentIndex + 1) * SideCount + (SideIndex + 1) % SideCount };
+			const int AnteriorJointAnteriorVertex{ SegmentIndex * SideCount + SideIndex };
+			const int AnteriorJointPosteriorVertex{ SegmentIndex * SideCount + (SideIndex + 1) % SideCount };
+			const int PosteriorJointAnteriorVertex{ (SegmentIndex + 1) * SideCount + SideIndex };
+			const int PosteriorJointPosteriorVertex{ (SegmentIndex + 1) * SideCount + (SideIndex + 1) % SideCount };
 
-			Triangles.Add(A);
-			Triangles.Add(C);
-			Triangles.Add(D);
-			Triangles.Add(A);
-			Triangles.Add(D);
-			Triangles.Add(B);
+			Triangles.Add(AnteriorJointAnteriorVertex);
+			Triangles.Add(PosteriorJointAnteriorVertex);
+			Triangles.Add(PosteriorJointPosteriorVertex);
+			Triangles.Add(AnteriorJointAnteriorVertex);
+			Triangles.Add(PosteriorJointPosteriorVertex);
+			Triangles.Add(AnteriorJointPosteriorVertex);
 		}
 	}
 

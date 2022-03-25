@@ -29,6 +29,8 @@ void AKrullGameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	Curl->Update(DeltaTime);
+
 	FVector DeltaPosition = Curl->GetPosition() - Camera->GetActorLocation();
 	FVector Force = 400.0f * DeltaPosition;
 	Camera->AddForce(Force);

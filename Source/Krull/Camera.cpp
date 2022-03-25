@@ -7,8 +7,6 @@
 // Sets default values.
 ACamera::ACamera()
 {
-	UE_LOG(LogTemp, Warning, TEXT("ACamera::ACamera()"));
-	
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> BallMesh(TEXT("/Game/Meshes/BallMesh.BallMesh"));
 
 	Body = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Body"));
