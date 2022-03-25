@@ -32,7 +32,7 @@ protected:
 
 public:	
 	FVector GetPosition();
-	FTransform GetTransform();
+	FTransform GetOrientation();
 	FVector GetAngularVelocity();
 	void Turn(const FVector Torque);
 	void Update();

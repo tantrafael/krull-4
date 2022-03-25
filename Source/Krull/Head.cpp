@@ -51,7 +51,7 @@ FVector AHead::GetPosition()
 	return Positioner->GetComponentLocation();
 }
 
-FTransform AHead::GetTransform()
+FTransform AHead::GetOrientation()
 {
 	return Positioner->GetComponentTransform();
 }
@@ -63,7 +63,6 @@ FVector AHead::GetAngularVelocity()
 
 void AHead::Turn(const FVector Torque)
 {
-	//const FVector T = 50000000.0f * Torque;
 	const FVector T = TorqueFactor * Torque;
 	Director->AddTorqueInRadians(T);
 }

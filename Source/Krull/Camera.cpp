@@ -36,7 +36,8 @@ void ACamera::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Body->SetLinearDamping(2.0f);
+	//Body->SetLinearDamping(2.0f);
+	Body->SetLinearDamping(8.0f);
 	Body->SetAngularDamping(8.0f);
 
 	GetWorld()->GetFirstPlayerController()->SetViewTarget(this);

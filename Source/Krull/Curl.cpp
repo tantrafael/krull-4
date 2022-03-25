@@ -69,6 +69,11 @@ FVector ACurl::GetPosition()
 	return Head->GetPosition();
 }
 
+FTransform ACurl::GetOrientation()
+{
+	return Head->GetOrientation();
+}
+
 void ACurl::Update(const float DeltaTime)
 {
 	// TODO: Assert Head and Body.
@@ -79,7 +84,7 @@ void ACurl::Update(const float DeltaTime)
 
 	Head->Update();
 
-	const FTransform Transform = Head->GetTransform();
+	const FTransform Transform = Head->GetOrientation();
 	FVector AngularVelocity = Head->GetAngularVelocity();
 	const float Radius = 20.0f + 1.0f * AngularVelocity.Size();
 	//const float Radius = 10.0f + 2.0f * AngularVelocity.Size();

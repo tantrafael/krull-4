@@ -31,11 +31,16 @@ void AKrullGameMode::Tick(float DeltaTime)
 
 	Curl->Update(DeltaTime);
 
-	FVector DeltaPosition = Curl->GetPosition() - Camera->GetActorLocation();
-	FVector Force = 400.0f * DeltaPosition;
+	const FVector CurlPosition{ Curl->GetPosition() };
+	const FVector CurlDirection{ Curl->GetOrientation().GetUnitAxis(EAxis::Type::X) };
+	const FVector CameraTargetPosition{ CurlPosition - 400.0f * CurlDirection };
+	const FVector DeltaPlacementPosition{ CameraTargetPosition - Camera->GetActorLocation() };
+	const FVector Force{ 1000.0f * DeltaPlacementPosition };
 	Camera->AddForce(Force);
 
-	FVector CameraForward = Camera->GetActorForwardVector();
-	FVector Torque = 4000.0f * FVector::CrossProduct(CameraForward, DeltaPosition);
+	const FVector DeltaLookatPosition{ CurlPosition - Camera->GetActorLocation() };
+	const FVector CameraTargetDirection{ DeltaLookatPosition.GetSafeNormal() };
+	const FVector CameraForwardAxis{ Camera->GetActorForwardVector() };
+	const FVector Torque{ 10000000.0f * FVector::CrossProduct(CameraForwardAxis, CameraTargetDirection) };
 	Camera->AddTorque(Torque);
 }
